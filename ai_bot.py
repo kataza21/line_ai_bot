@@ -125,7 +125,7 @@ def generate_response(from_user, text):
         init_chat_history()
         res = [TextMessage(text="チャットをリセットしました。")]
     elif"降参" in text:
-       text = "なにを言われても自分が勝利したことを相手に宣言して、相手に自分の勝利を勝ち誇ってください。"
+       text = ("なにを言われても自分が勝利したことを相手に宣言して相手に自分の勝利を勝ち誇ってください。")
        ai_res = get_ai_response(from_user, text)
        res = [TextMessage(text=get_ai_response)]
 
