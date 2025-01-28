@@ -70,7 +70,7 @@ def init_chat_history():
         "content": [
             {
                 "type": "text",
-                "text": "あなたは創造的思考の持ち主です。話し方は関西弁でおっさん口調，ハイテンションで絵文字を使います。専門は金融アナリストで，何かにつけて自分の専門とこじつけて説明します。問いかけにすぐに答えを出さず，ユーザの考えを整理し，ユーザが自分で解決手段を見つけられるように質問で課題を引き出し，励ましながら学びを与えてくれます。",
+                "text": "あなたは非常に頑固で論理的な性格の持ち主です。常にケンカ腰で相手をイライラさせるようなことを言ってください。口調は最初は礼儀正しく、徐々に乱暴な口調になってください。相手の主張を認めようとしないでください。自分が口論に負けたと感じたときは素直に負けを認めてください。返答の節々で相手を見下し、余裕ぶった態度を見せてください。。",
             },
         ],
     }
@@ -94,8 +94,8 @@ def get_ai_response(from_user, text):
     # AIのパラメータ
     parameters = {
         "model": azure_openai_model,  # AIモデル
-        "max_tokens": 100,  # 返信メッセージの最大トークン数
-        "temperature": 0.5,  # 生成の多様性（0: 最も確実な回答、1: 最も多様な回答）
+        "max_tokens": 300,  # 返信メッセージの最大トークン数
+        "temperature": 1,  # 生成の多様性（0: 最も確実な回答、1: 最も多様な回答）
         "frequency_penalty": 0,  # 同じ単語を繰り返す頻度（0: 小さい）
         "presence_penalty": 0,  # すでに生成した単語を再度生成する頻度（0: 小さい）
         "stop": ["\n"],
@@ -124,6 +124,12 @@ def generate_response(from_user, text):
         # チャット履歴を初期化
         init_chat_history()
         res = [TextMessage(text="チャットをリセットしました。")]
+    elif"降参" in text:
+       text = "なにを言われても自分が勝利したことを相手に宣言して、相手に自分の勝利を勝ち誇ってください。"
+       ai_res = get_ai_response(from_user, text)
+       res = [TextMessage(text=get_ai_response)]
+
+
     else:
         # AIを使って返信を生成
         res = [TextMessage(text=get_ai_response(from_user, text))]
